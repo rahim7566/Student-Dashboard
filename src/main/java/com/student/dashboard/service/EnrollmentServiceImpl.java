@@ -25,17 +25,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public void enrollStudent(Long studentId, List<Long> courseIds) {
-        // 1. Validate student exists
+
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
-        // 2. Fetch all requested courses
         List<Course> courses = courseRepository.findAllById(courseIds);
         if (courses.size() != courseIds.size()) {
             throw new ResourceNotFoundException("One or more courses not found");
         }
 
-        // 3. Get current enrollments of the student
         Set<Long> alreadyEnrolledCourseIds = student.getEnrollments().stream()
                 .map(e -> e.getCourse().getId())
                 .collect(Collectors.toSet());
@@ -43,13 +41,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         List<Enrollment> enrollmentsToSave = new ArrayList<>();
 
         for (Course course : courses) {
-
-            // 4. Check if already enrolled
             if (alreadyEnrolledCourseIds.contains(course.getId())) {
-                continue; // skip duplicate
+                continue;
             }
-
-            // 5. Check prerequisites
             boolean prerequisitesMet = course.getPrerequisites() == null || course.getPrerequisites().stream()
                     .allMatch(prereq ->
                             student.getEnrollments().stream()
@@ -59,14 +53,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             if (!prerequisitesMet) {
                 throw new IllegalArgumentException("Student does not meet prerequisites for course: " + course.getTitle());
             }
-
-            // 6. Check course capacity
             long currentEnrollment = course.getEnrollments().size();
             if (currentEnrollment >= course.getCapacity()) {
                 throw new IllegalStateException("Course is full: " + course.getTitle());
             }
 
-            // 7. Create new Enrollment
             Enrollment enrollment = new Enrollment();
             enrollment.setStudent(student);
             enrollment.setCourse(course);
@@ -75,7 +66,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             enrollmentsToSave.add(enrollment);
         }
 
-        // 8. Save enrollments
         enrollmentRepository.saveAll(enrollmentsToSave);
     }
 }
