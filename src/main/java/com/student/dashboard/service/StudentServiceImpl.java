@@ -1,6 +1,5 @@
 package com.student.dashboard.service;
 
-import com.student.dashboard.configuration.ResourceNotFoundException;
 import com.student.dashboard.dto.StudentDTO;
 import com.student.dashboard.model.Student;
 import com.student.dashboard.repository.StudentRepository;
@@ -35,14 +34,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDTO getStudentById(Long id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+                .orElseThrow(() -> new NoSuchElementException("Student not found"));
         return modelMapper.map(student, StudentDTO.class);
     }
 
     @Override
     public StudentDTO updateStudent(Long id, StudentDTO dto) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+                .orElseThrow(() -> new NoSuchElementException("Student not found"));
 
         student.setName(dto.getName());
         student.setEmail(dto.getEmail());

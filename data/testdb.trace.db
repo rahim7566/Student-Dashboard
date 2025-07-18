@@ -1,0 +1,17 @@
+2025-07-18 09:31:56.433394+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM COURSE_PREREQUISITE \000d\000a[*]SELECT * FROM COURSE"; SQL statement:
+SELECT * FROM COURSE_PREREQUISITE 
+SELECT * FROM COURSE [42000-232]
+2025-07-18 09:35:41.303771+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * [*]ENROLLMENT"; SQL statement:
+SELECT * ENROLLMENT [42000-232]
+2025-07-18 09:36:19.288652+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM STUDENT \000d\000a[*]SELECT * FROM COURSE"; SQL statement:
+SELECT * FROM STUDENT 
+SELECT * FROM COURSE [42000-232]
+2025-07-18 10:44:01.588102+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SHOW [*]CREATE TABLE grade"; SQL statement:
+SHOW CREATE TABLE grade [42000-232]
+2025-07-18 10:45:25.770760+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SHOW [*]CREATE TABLE grade"; SQL statement:
+SHOW CREATE TABLE grade [42000-232]

@@ -18,7 +18,11 @@ public class Course {
     private int capacity;
 
     @ManyToMany
-    @JoinTable(name = "course_prerequisite")
+    @JoinTable(
+            name = "course_prerequisite",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
+    )
     private List<Course> prerequisites;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)

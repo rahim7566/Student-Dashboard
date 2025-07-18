@@ -1,5 +1,7 @@
 package com.student.dashboard.service;
 
+import com.student.dashboard.dto.GradeDTO;
+
 public interface GradeService {
-    void recordGrade(Long studentId, Long courseId, String grade);
+    GradeDTO recordGrade(Long studentId, Long courseId, String grade);
 }

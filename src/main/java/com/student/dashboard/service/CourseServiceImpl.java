@@ -1,6 +1,5 @@
 package com.student.dashboard.service;
 
-import com.student.dashboard.configuration.ResourceNotFoundException;
 import com.student.dashboard.dto.CourseDTO;
 import com.student.dashboard.model.Course;
 import com.student.dashboard.repository.CourseRepository;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,14 +34,14 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDTO getCourseById(Long id) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
+                .orElseThrow(() -> new NoSuchElementException("Course not found"));
         return mapToDto(course);
     }
 
     @Override
     public CourseDTO updateCourse(Long id, CourseDTO dto) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
+                .orElseThrow(() -> new NoSuchElementException("Course not found"));
 
         course.setTitle(dto.getTitle());
         course.setCapacity(dto.getCapacity());
@@ -60,7 +58,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(Long id) {
         if (!courseRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Course not found");
+            throw new NoSuchElementException("Course not found");
         }
         courseRepository.deleteById(id);
     }
