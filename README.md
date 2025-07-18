@@ -38,11 +38,11 @@ A Spring Boot RESTful web service to manage university or school courses. This c
 - Delete a course
 - List all courses with pagination
 
-#### Sample request for listing all students using pagination:
+#### Sample request for listing all courses using pagination:
 
 Query request:
 ```
-GET /students?page=0&size=10
+GET /courses?page=0&size=10
 ```
 Sample response:
 ```
